@@ -25,7 +25,7 @@ public class GenerateScript {
         for (int i = 0; i < singleStreamConnections.size(); i++) {
             bufferedWriter.write(singleStreamConnections.get(i) + "\n");
         }
-        bufferedWriter.write("---------------------------------------------------------------------------\n");
+        //bufferedWriter.write("---------------------------------------------------------------------------\n");
         for (int i = 0; i < multipleStreamsConnections.size(); i++) {
             bufferedWriter.write(multipleStreamsConnections.get(i) + "\n");
         }
@@ -131,46 +131,46 @@ public class GenerateScript {
                                           ) {
         StringBuilder builder = new StringBuilder();
         if (isMultipleStream) {
-            builder.append("am start -W \\" +
-            "-a com.google.android.exoplayer.demo.action.VIEW_LIST \\" +
-            "-c android.intent.category.DEFAULT \\" +
-            "--esa uri_list \\");
+            builder.append("am start -W " +
+            "-a com.google.android.exoplayer.demo.action.VIEW_LIST " +
+            "-c android.intent.category.DEFAULT " +
+            "--esa uri_list ");
             for (int i = 0; i < uris.size(); i++) {
                 if (i != uris.size()) {
-                    builder.append(uris.get(i) + "\\, \\");
+                    builder.append(uris.get(i) + ", ");
                 } else {
-                    builder.append(uris.get(i) + " \\");
+                    builder.append(uris.get(i) + " ");
                 }
             }
         } else {
-            builder.append("am start -W \\" +
-                    "-a com.google.android.exoplayer.demo.action.VIEW \\" +
-                    "-c android.intent.category.DEFAULT \\");
+            builder.append("am start -W " +
+                    "-a com.google.android.exoplayer.demo.action.VIEW " +
+                    "-c android.intent.category.DEFAULT ");
             builder.append("-d " + uri);
         }
 
         if (extension != null) {
-            builder.append("-e extension " + extension + " \\");
+            builder.append("-e extension " + extension + " ");
         }
 
         if (drm_scheme != null) {
             if (drm_scheme.equals("widevine")) {
-                builder.append("-e drm_scheme_uuid " + WIDEVINE_UUID_STR + " \\");
+                builder.append("-e drm_scheme_uuid " + WIDEVINE_UUID_STR + " ");
             } else if (drm_scheme.equals("playready")) {
-                builder.append("-e drm_scheme_uuid " + PLAYREADY_UUID_STR + " \\");
+                builder.append("-e drm_scheme_uuid " + PLAYREADY_UUID_STR + " ");
             } else {
                 System.out.println("Unsupported uuid!!!");
             }
         }
 
         if (drm_license_url != null) {
-            builder.append("-e drm_license_url " + drm_license_url + " \\");
+            builder.append("-e drm_license_url " + drm_license_url + " ");
         }
 
         if (ad_tag_uri != null) {
             //TO-DO
             //Check
-            builder.append("-e ad_tag_uri " + ad_tag_uri + " \\");
+            builder.append("-e ad_tag_uri " + ad_tag_uri + " ");
         }
 
         return builder.toString();
